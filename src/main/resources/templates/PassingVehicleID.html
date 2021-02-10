@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Vehicle ID</title>
+</head>
+<body>
+
+<br>
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1>Vehicle ID</h1>
+            <form th:action="@{/booking/getDetails}" method="post" th:object="${booking}">
+                <div class="form-group">
+
+                    <!--                    <input class = "hidden" th:field="*{carID}"/>-->
+                    <label class="control-label" for="carID"> Car ID: </label>
+                    <input id="carID" disabled class="form-control" th:field="*{carID}"
+                           required autofocus="autofocus"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" align="center" class="btn btn-success">Proceed</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

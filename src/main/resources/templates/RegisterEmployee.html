@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>Add Employee</title>
+
+</head>
+<body>
+<button><a th:href="@{/employee/loadEmployeeHomepage}">Home</a></button>
+
+<!-- success message -->
+<div th:if="${param.success}">
+    <div class="alert alert-info">You've successfully registered!
+    </div>
+</div>
+
+</div>
+<div class="login-page">
+    <div class="form">
+        <h1>Register Employee</h1>
+        <form method="post" th:action="@{/user/registerEmployee}" th:object="${employee}">
+
+            <input autofocus="autofocus"
+                   class="form-control" id="username" placeholder="Username" required
+                   th:field="*{username}"/>
+
+            <input autofocus="autofocus"
+                   class="form-control" id="password" placeholder="Password"
+                   required th:field="*{password}" type="password"/>
+
+            <input autofocus="autofocus" class="form-control" id="firstName" placeholder="First Name"
+                   required th:field="*{firstName}"/>
+
+
+            <input autofocus="autofocus"
+                   class="form-control" id="lastName" placeholder="Last Name"
+                   required th:field="*{lastName}"/>
+
+            <input autofocus="autofocus"
+                   class="form-control" id="address" placeholder="Address" required
+                   th:field="*{address}"/>
+
+            <input autofocus="autofocus"
+                   class="form-control" id="phoneNumber" placeholder="Phone Number" required th:field="*{phoneNumber}"
+                   type="number"/>
+
+            <button align="center" class="btn btn-success" type="submit">Register</button>
+
+        </form>
+
+    </div>
+</div>
+
+
+</body>
+</html>

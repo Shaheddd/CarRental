@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Banger And Co</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+</head>
+
+<body>
+
+<br>
+<h1 class="text-center">Banger And Co Car Gallery
+    <a href="/customer/loadCustomerHomepageBelow25" class="btn btn-danger text-right">Go Home</a>
+</h1>
+</br>
+
+<table id="example" class="table table-striped table-bordered text-center">
+    <thead>
+    <tr>
+        <th> Serial Number</th>
+        <th> Model</th>
+        <th> Brand</th>
+        <th> Transmission Type</th>
+        <th> Air Conditioning</th>
+        <th> Category Type</th>
+        <th> Price</th>
+        <th> Fuel Type</th>
+        <th> Doors</th>
+        <th> Seats</th>
+        <th> Images</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="listSmallTownCars, hh : ${listAllSmallTownCars}">
+        <td th:text="${listSmallTownCars.id}"></td>
+        <td th:text="${listSmallTownCars.model}"></td>
+        <td th:text="${listSmallTownCars.brand}"></td>
+        <td th:text="${listSmallTownCars.transmissionType}"></td>
+        <td th:text="${listSmallTownCars.airConditioning}"></td>
+        <td th:text="${listSmallTownCars.categoryType}"></td>
+        <td th:text="${listSmallTownCars.categoryPrice}"></td>
+        <td th:text="${listSmallTownCars.fuelType}"></td>
+        <td th:text="${listSmallTownCars.doors}"></td>
+        <td th:text="${listSmallTownCars.seats}"></td>
+        <td><img th:src="@{${'/vehicle/image/display/'+ listSmallTownCars.id}}"
+                 class="card img-fluid" style="width:300px" alt=""/></td>
+        <td><a th:href="@{/vehicle/carImageDetails(id=${listSmallTownCars.id})}"
+               class="btn btn-info text-right" target="_blank">View</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+</body>
+</html>

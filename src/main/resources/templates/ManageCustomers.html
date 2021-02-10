@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>List Of Equipment</title>
+
+</head>
+
+<nav class="navbar navbar-inverse">
+
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Banger And Co</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></li>
+        <li><a th:href="@{/vehicle/home}">Add Vehicle</a></li>
+        <li><a th:href="@{/equipment/loadEquipmentForm}">Add Equipment</a></li>
+        <li class="active"><a th:href="@{/equipment/listEquipments}">List Equipment</a> </li>
+        <li><a th:href="@{/administrator/manageCustomers}">Manage Customers</a></li>
+        <li><a th:href="@{/vehicle/show}">View All Vehicles</a></li>
+        <li><a th:href="@{/webScrape/getData}">View Prices</a></li>
+        <li><a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+    </ul>
+    </div>
+</nav>
+<body>
+
+<div align="center" class="form1">
+
+
+    <h1>Manage Customers</h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th> Customer ID</th>
+            <th> Customer First Name</th>
+            <th> Customer Last Name</th>
+            <th> Customer Address</th>
+            <th> Customer Phone Number</th>
+            <th> Customer Age</th>
+            <th> Customer Email</th>
+            <th> Customer's Drivers License Number</th>
+            <th> Status</th>
+            <th> Blacklist</th>
+            <th> Active</th>
+            <th> Validate License</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.customerID}"></td>
+            <td th:text="${customer.customerFirstName}"></td>
+            <td th:text="${customer.customerLastName}"></td>
+            <td th:text="${customer.customerAddress}"></td>
+            <td th:text="${customer.customerPhoneNumber}"></td>
+            <td th:text="${customer.customerAge}"></td>
+            <td th:text="${customer.customerEmail}"></td>
+            <td th:text="${customer.driversLicenseNumber}"></td>
+            <td th:text="${customer.status}"></td>
+            <td><a th:href="@{/administrator/blacklistCustomer/{id}(id=${customer.userID})}" class="btn btn-danger">Blacklist</a>
+            </td>
+            <td><a th:href="@{/administrator/activeCustomer/{id}(id=${customer.userID})}"
+                   class="btn btn-primary">Active</a></td>
+            <td><a th:href="@{/validation/validateAllDriversLicense/{id}(id=${customer.customerID})}"
+                   class="btn btn-primary">Verify License</a></td>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Banger And Co</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Banger And Co</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></li>
+        <li class="active"><a th:href="@{/vehicle/home}">Add Vehicle</a></li>
+        <li><a th:href="@{/equipment/loadEquipmentForm}">Add Equipment</a></li>
+        <li><a th:href="@{/equipment/listEquipments}">List Equipment</a> </li>
+        <li><a th:href="@{/administrator/manageCustomers}">Manage Customers</a></li>
+        <li><a th:href="@{/vehicle/show}">View All Vehicles</a></li>
+        <li><a th:href="@{/webScrape/getData}">View Prices</a></li>
+        <li><a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+    </ul>
+    </div>
+</nav>
+
+<div class="contact py-sm-5 py-4">
+    <div class="container py-xl-4 py-lg-2">
+        <!-- form -->
+        <!--        <form id="form">-->
+
+        <form id="form" th:action="@{/vehicle/saveCarDetails}" method="POST">
+
+
+            <div class="contact-grids1 w3agile-6">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label class="col-form-label">Model</label>
+                        <input type="text" class="form-control" placeholder="Model" id="model" name="model"
+                               required="required">
+                        <p id="error_name"></p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label class="col-form-label">Brand</label>
+                        <input type="text" class="form-control" placeholder="Brand" id="brand" name="brand"
+                               required="required">
+                        <p id="error_brand"></p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label for="transmissionType">Transmission Type :</label>
+                        <select name="transmissionType" id="transmissionType">
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label for="fuelType">Fuel Type :</label>
+                        <select name="fuelType" id="fuelType">
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label for="categoryType">Category Type :</label>
+                        <select name="categoryType" id="categoryType">
+                            <option value="Small Town Car">Small Town Car</option>
+                            <option value="Small Family Hatchback">Small Family Hatchback</option>
+                            <option value="Medium Van">Medium Van</option>
+                            <option value="Large Family Saloon">Large Family Saloon</option>
+                            <option value="Large Family Estate">Large Family Estate</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label class="col-form-label">Price</label>
+                        <input type="text" class="form-control" placeholder="categoryPrice" id="categoryPrice"
+                               name="categoryPrice" required="required">
+                        <p id="error_categoryPrice"></p>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label for="airConditioning">Air Conditioning :</label>
+                        <select name="airConditioning" id="airConditioning">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <!--                    <div class="col-md-6 col-sm-6 contact-form1 form-group">-->
+                    <!--                        <label class="col-form-label">Transmission Type</label>-->
+                    <!--                        <input type="text" class="form-control" placeholder="transmissionType" id="transmissionType" name="transmissionType" required="required">-->
+                    <!--                        <p id="error_transmissionType"></p>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="col-md-6 col-sm-6 contact-form1 form-group">-->
+                    <!--                        <label class="col-form-label">Air Conditioning</label>-->
+                    <!--                        <input type="text" class="form-control" placeholder="airConditioning" id="airConditioning" name="airConditioning" required="required">-->
+                    <!--                        <p id="error_airConditioning"></p>-->
+                    <!--                    </div>-->
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label class="col-form-label">Doors</label>
+                        <input type="text" class="form-control" placeholder="doors" id="doors" name="doors"
+                               required="required">
+                        <p id="error_doors"></p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label class="col-form-label">Seats</label>
+                        <input type="text" class="form-control" placeholder="seats" id="seats" name="seats"
+                               required="required">
+                        <p id="error_seats"></p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 contact-form1 form-group">
+                        <label class="col-form-label">Image</label>
+                        <input type="file" class="form-control" placeholder="" name="image" id="image"
+                               required="required">
+                        <p id="error_file"></p>
+                    </div>
+                </div>
+
+                <div class="right-w3l col-md-6">
+                    <input type="button" id="submit" class="btn btn-primary form-control" value="Submit">
+                    <br><br>
+                </div>
+                <a href="/vehicle/show" style="float:left;" class="btn btn-success text-right">Show All</a>
+            </div>
+            <br>
+            <div id="success" class="text-center" style="color:green;"></div>
+            <div id="error" class="text-center" style="color:#ff0000;"></div>
+        </form>
+    </div>
+</div>
+<p class="text-center">
+    <img src="/images/loader.gif" alt="loader" style="width: 150px;height: 120px;" id="loader">
+</p>
+<script src="/js/product.js"></script>
+
+
+</body>
+</html>

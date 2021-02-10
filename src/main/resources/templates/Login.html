@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Login</title>
+
+    <link href="/css/style2.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+    <section id="content">
+        <form th:action="@{/login}" method="post">
+            <h1>Login Form</h1>
+            <div>
+                <input type="text" class="form-control" id="username" name="username"
+                       placeholder="Username" autofocus="autofocus">
+            </div>
+            <div>
+
+                <input type="password" id="password" name="password" placeholder="Password"/>
+
+            </div>
+            <div>
+                <input type="submit" name="login-submit" value="Log in " id="login-submit" />
+                <a href="/" th:href="@{/user/loadAdministratorForm}">Register Admin</a>
+                <a href="/" th:href="@{/user/loadCustomerForm}">Register Customer</a>
+                <br><br>
+            </div>
+
+            <!-- error message -->
+            <br><br> <div th:if="${param.error}">
+            <div class="alert alert-danger">Invalid username or
+                password.
+            </div>
+        </div>
+
+            <!-- logout message -->
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">You have been logged out.</div>
+            </div>
+
+        </form><!-- form -->
+
+    </section><!-- content -->
+</div><!-- container -->
+</body>
+</html>

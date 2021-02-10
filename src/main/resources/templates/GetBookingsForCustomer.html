@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>View My Bookings</title>
+</head>
+<body>
+
+<div align="center" class="form1">
+
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Booking Extended to 9 Pm!</div>
+    </div>
+
+    <div th:if="${param.failed}">
+        <div class="alert alert-info">Booking Cannot Be Extended! You Need To Have 3 Previous Bookings In Order To Be Eligible To Extend Future Bookings!</div>
+    </div>
+
+    <h1>List Of Bookings</h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th> Booking Start Date</th>
+            <th> Booking End Date</th>
+            <th> Booking Start Time</th>
+            <th> Booking End Time</th>
+            <th> Total Price</th>
+            <th> Status</th>
+            <th> Model</th>
+            <th> Extend Booking</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${bookingsForCustomer}">
+            <td th:text="${booking.startDate}"></td>
+            <td th:text="${booking.endDate}"></td>
+            <td th:text="${booking.startTime}"></td>
+            <td th:text="${booking.endTime}"></td>
+            <td th:text="${booking.totalPrice}"></td>
+            <td th:text="${booking.status}"></td>
+            <td th:text="${booking.getCar().model}"></td>
+            <td><a th:href="@{/customer/extendBooking/{id}(id=${booking.bookingID})}" class="btn btn-danger">Extend Booking</a>
+            </td>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

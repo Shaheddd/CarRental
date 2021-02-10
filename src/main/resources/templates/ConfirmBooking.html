@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/booking/equipmentCalculation}" method="get">
+
+    <div th:object="${}"></div>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th> Equipment ID</th>
+            <th> Equipment Name</th>
+            <th> Equipment Description</th>
+            <th> Equipment Price</th>
+            <th> Choose</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="equipment:${equipments}">
+            <!--                         th:for="${equipment.equipmentID}">-->
+            <td th:inline="text"> [[${equipment.equipmentID}]]</td>
+            <td th:inline="text"> [[${equipment.equipmentName}]]</td>
+            <td th:inline="text"> [[${equipment.equipmentDescription}]]</td>
+            <td th:inline="text"> [[${equipment.price}]]</td>
+
+            <td>
+                <input type="checkbox" th:value="${equipment.equipmentID}" name="equipmentID"
+                       th:id="${equipment.equipmentID}">
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+</body>
+</html>
