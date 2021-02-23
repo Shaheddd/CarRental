@@ -67,14 +67,19 @@ public class UserService implements UserInterface {
         try {
             User user = userRepository.searchUsername(userName);
 
-            if(userName == null) {
+            if(user == null) {
                 return true;
+            }
+            else
+            {
+                return false;
             }
     } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
+
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());

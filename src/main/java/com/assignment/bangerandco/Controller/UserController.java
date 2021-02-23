@@ -79,31 +79,38 @@ public class UserController {
     @PostMapping("/registerCustomer")
     public String registerCustomer(@ModelAttribute("customer") CustomerRegistration customerRegistration) {
 
-        boolean validateUsername = userService.validateUsername(customerRegistration.getUsername());
+        if(customerRegistration.getAge()>=18)
+        {
+            boolean validateUsername = userService.validateUsername(customerRegistration.getUsername());
 
-        if(validateUsername) {
-            Customer registerCustomer = customerService.registerCustomer(customerRegistration);
-            User user = new User();
-            user.setTableID(registerCustomer.getCustomerID());
-            user.setUsername(customerRegistration.getUsername());
-            user.setPassword(bCryptPasswordEncoder.encode(customerRegistration.getPassword()));
-            user.setFirstName(customerRegistration.getFirstName());
-            user.setLastName(customerRegistration.getLastName());
-            user.setPhoneNumber(customerRegistration.getPhoneNumber());
-            user.setAddress(customerRegistration.getAddress());
-            user.setAge(customerRegistration.getAge());
-            user.setStatus("Active");
-            registerCustomer.setStatus("Active");
-            registerCustomer.setDriversLicenseNumber(customerRegistration.getDriversLicenseNumber());
-            user.setRoles(Arrays.asList(new Role("Customer")));
-            User registeredUser = userService.save(user);
-            registerCustomer.setUserID(registeredUser.getUserID());
-            customerService.save(registerCustomer);
-        } else {
-            return "redirect:/user/loadCustomerForm?failed";
+            if(validateUsername) {
+                Customer registerCustomer = customerService.registerCustomer(customerRegistration);
+                User user = new User();
+                user.setTableID(registerCustomer.getCustomerID());
+                user.setUsername(customerRegistration.getUsername());
+                user.setPassword(bCryptPasswordEncoder.encode(customerRegistration.getPassword()));
+                user.setFirstName(customerRegistration.getFirstName());
+                user.setLastName(customerRegistration.getLastName());
+                user.setPhoneNumber(customerRegistration.getPhoneNumber());
+                user.setAddress(customerRegistration.getAddress());
+                user.setAge(customerRegistration.getAge());
+                user.setStatus("Active");
+                registerCustomer.setStatus("Active");
+                registerCustomer.setDriversLicenseNumber(customerRegistration.getDriversLicenseNumber());
+                user.setRoles(Arrays.asList(new Role("Customer")));
+                User registeredUser = userService.save(user);
+                registerCustomer.setUserID(registeredUser.getUserID());
+                customerService.save(registerCustomer);
+
+                return "redirect:/user/loadCustomerForm?success";
+            } else {
+                return "redirect:/user/loadCustomerForm?failed";
+            }
         }
-
-        return "Login";
+        else
+        {
+            return "redirect:/user/loadCustomerForm?age";
+        }
     }
 
 }
