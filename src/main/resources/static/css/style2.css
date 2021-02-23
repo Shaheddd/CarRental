@@ -10,9 +10,9 @@ fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th{
 	margin: 0;
 	padding: 0;
-	border: 0;
 	outline: 0;
 	font-size: 100%;
+	border: 0 #0e0e0e;
 	vertical-align: baseline;
 	background: transparent;
 	border-collapse:collapse;
@@ -24,11 +24,15 @@ tr{
 	outline: 0;
 	font-size: 100%;
 	vertical-align: baseline;
-	background: transparent;
+	background: #fafafa;
 	border-collapse:collapse;
 }
 body {
 	background: #DCDDDF url(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
+	height: 500px; /* You must set a specified height */
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover; /* Resize the background image to cover the entire container */
 	color: #000;
 	font: 14px Arial;
 	margin: 0 auto;
@@ -74,15 +78,15 @@ form:after {
 	box-shadow: 0 1px 0 #fff inset;
 	border: 1px solid #c4c6ca;
 
-    margin: auto;
-    width: 50%;
+	margin: auto;
+	width: 50%;
 
-    margin: 0 auto;
+	margin: 0 auto;
 	padding: 25px 0 0;
 	position: relative;
 	text-align: center;
 	text-shadow: 0 1px 0 #fff;
-	
+
 }
 #content h1 {
 	color: #7E7E7E;
@@ -106,7 +110,7 @@ form:after {
 	background: -o-linear-gradient(left,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
 	background: -ms-linear-gradient(left,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
 	background: linear-gradient(left,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
-    right: 0;
+	right: 0;
 }
 #content h1:before {
 	background: rgb(126,126,126);
@@ -115,7 +119,7 @@ form:after {
 	background: -o-linear-gradient(right,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
 	background: -ms-linear-gradient(right,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
 	background: linear-gradient(right,  rgba(126,126,126,1) 0%,rgba(255,255,255,1) 100%);
-    left: 0;
+	left: 0;
 }
 #content:after,
 #content:before {
@@ -231,10 +235,10 @@ form:after {
 }
 #content form div a {
 	color: #004a80;
-    float: right;
-    font-size: 12px;
-    margin: 30px 15px 0 0;
-    text-decoration: underline;
+	float: right;
+	font-size: 12px;
+	margin: 30px 15px 0 0;
+	text-decoration: underline;
 }
 .button {
 	background: rgb(247,249,250);

@@ -2,11 +2,12 @@ package com.assignment.bangerandco.Controller;
 
 import com.assignment.bangerandco.DataTransferObject.AdministratorRegistration;
 import com.assignment.bangerandco.DataTransferObject.CustomerRegistration;
-import com.assignment.bangerandco.DataTransferObject.EmployeeRegistration;
-import com.assignment.bangerandco.Entity.*;
+import com.assignment.bangerandco.Entity.Administrator;
+import com.assignment.bangerandco.Entity.Customer;
+import com.assignment.bangerandco.Entity.Role;
+import com.assignment.bangerandco.Entity.User;
 import com.assignment.bangerandco.Service.AdministratorService;
 import com.assignment.bangerandco.Service.CustomerService;
-import com.assignment.bangerandco.Service.EmployeeService;
 import com.assignment.bangerandco.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,9 +34,6 @@ public class UserController {
     CustomerService customerService;
 
     @Autowired
-    EmployeeService employeeService;
-
-    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/loadAdministratorForm")
@@ -47,22 +45,29 @@ public class UserController {
     @PostMapping("/registerAdministrator")
     public String registerAdministrator(@ModelAttribute("administrator") AdministratorRegistration administratorRegistration) {
 
-        Administrator registerAdministrator = administratorService.registerAdministrator(administratorRegistration);
-        User user = new User();
-        user.setTableID(registerAdministrator.getAdministratorID());
-        user.setUsername(administratorRegistration.getUsername());
-        user.setPassword(bCryptPasswordEncoder.encode(administratorRegistration.getPassword()));
-        user.setFirstName(administratorRegistration.getFirstName());
-        user.setLastName(administratorRegistration.getLastName());
-        user.setPhoneNumber(administratorRegistration.getPhoneNumber());
-        user.setAddress(administratorRegistration.getAddress());
-        user.setStatus("Active");
-        user.setRoles(Arrays.asList(new Role("Administrator")));
-        User registeredUser = userService.save(user);
-        registerAdministrator.setUserID(registeredUser.getUserID());
-        administratorService.save(registerAdministrator);
+        boolean validateUsername = userService.validateUsername(administratorRegistration.getUsername());
 
-        return "redirect:/administrator/loadAdministratorHomepage";
+        if(validateUsername) {
+            Administrator registerAdministrator = administratorService.registerAdministrator(administratorRegistration);
+            User user = new User();
+            user.setTableID(registerAdministrator.getAdministratorID());
+            user.setUsername(administratorRegistration.getUsername());
+            user.setPassword(bCryptPasswordEncoder.encode(administratorRegistration.getPassword()));
+            user.setFirstName(administratorRegistration.getFirstName());
+            user.setLastName(administratorRegistration.getLastName());
+            user.setPhoneNumber(administratorRegistration.getPhoneNumber());
+            user.setAddress(administratorRegistration.getAddress());
+            user.setStatus("Active");
+            user.setRoles(Arrays.asList(new Role("Administrator")));
+            User registeredUser = userService.save(user);
+            registerAdministrator.setUserID(registeredUser.getUserID());
+            administratorService.save(registerAdministrator);
+
+            return "redirect:/administrator/loadAdministratorHomepage";
+        } else {
+            return "redirect:/user/loadAdministratorForm?failed";
+        }
+
     }
 
     @GetMapping("/loadCustomerForm")
@@ -74,50 +79,31 @@ public class UserController {
     @PostMapping("/registerCustomer")
     public String registerCustomer(@ModelAttribute("customer") CustomerRegistration customerRegistration) {
 
-        Customer registerCustomer = customerService.registerCustomer(customerRegistration);
-        User user = new User();
-        user.setTableID(registerCustomer.getCustomerID());
-        user.setUsername(customerRegistration.getUsername());
-        user.setPassword(bCryptPasswordEncoder.encode(customerRegistration.getPassword()));
-        user.setFirstName(customerRegistration.getFirstName());
-        user.setLastName(customerRegistration.getLastName());
-        user.setPhoneNumber(customerRegistration.getPhoneNumber());
-        user.setAddress(customerRegistration.getAddress());
-        user.setAge(customerRegistration.getAge());
-        user.setStatus("Active");
-        registerCustomer.setStatus("Active");
-        registerCustomer.setDriversLicenseNumber(customerRegistration.getDriversLicenseNumber());
-        user.setRoles(Arrays.asList(new Role("Customer")));
-        User registeredUser = userService.save(user);
-        registerCustomer.setUserID(registeredUser.getUserID());
-        customerService.save(registerCustomer);
+        boolean validateUsername = userService.validateUsername(customerRegistration.getUsername());
+
+        if(validateUsername) {
+            Customer registerCustomer = customerService.registerCustomer(customerRegistration);
+            User user = new User();
+            user.setTableID(registerCustomer.getCustomerID());
+            user.setUsername(customerRegistration.getUsername());
+            user.setPassword(bCryptPasswordEncoder.encode(customerRegistration.getPassword()));
+            user.setFirstName(customerRegistration.getFirstName());
+            user.setLastName(customerRegistration.getLastName());
+            user.setPhoneNumber(customerRegistration.getPhoneNumber());
+            user.setAddress(customerRegistration.getAddress());
+            user.setAge(customerRegistration.getAge());
+            user.setStatus("Active");
+            registerCustomer.setStatus("Active");
+            registerCustomer.setDriversLicenseNumber(customerRegistration.getDriversLicenseNumber());
+            user.setRoles(Arrays.asList(new Role("Customer")));
+            User registeredUser = userService.save(user);
+            registerCustomer.setUserID(registeredUser.getUserID());
+            customerService.save(registerCustomer);
+        } else {
+            return "redirect:/user/loadCustomerForm?failed";
+        }
 
         return "Login";
-    }
-
-    @GetMapping("/loadEmployeeForm")
-    public String loadEmployeeForm(Model model) {
-        model.addAttribute("employee", new EmployeeRegistration());
-        return "RegisterEmployee";
-    }
-
-    @PostMapping("/registerEmployee")
-    public String registerEmployee(@ModelAttribute("employee") EmployeeRegistration employeeRegistration) {
-        Employee registerEmployee = employeeService.registerEmployee(employeeRegistration);
-        User user = new User();
-        user.setTableID(registerEmployee.getEmployeeID());
-        user.setUsername(employeeRegistration.getUsername());
-        user.setPassword(employeeRegistration.getPassword());
-        user.setFirstName(employeeRegistration.getFirstName());
-        user.setLastName(employeeRegistration.getLastName());
-        user.setAddress(employeeRegistration.getAddress());
-        user.setPhoneNumber(employeeRegistration.getPhoneNumber());
-        user.setRoles(Arrays.asList(new Role("Employee")));
-        User registeredUser = userService.save(user);
-        registerEmployee.setUserID(registeredUser.getUserID());
-        employeeService.save(registerEmployee);
-
-        return "redirect:/employee/loadEmployeeHomepage";
     }
 
 }

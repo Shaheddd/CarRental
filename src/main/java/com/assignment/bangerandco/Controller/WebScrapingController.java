@@ -61,9 +61,52 @@ public class WebScrapingController {
             e.getMessage();
         }
 
-
         model.addAttribute("webScraping", webScrapingList);
         model.addAttribute("allVehicles", carList);
         return "WebScrapingVehicleList";
+    }
+
+    @GetMapping("/getAllWebScrapingDataUnder25")
+    public String getAllWebScrapingDataUnder25(Model model) {
+        List<WebScraping> webScrapingList = new ArrayList<>();
+        List<Car> carList = carService.getAllVehicles();
+
+        final String url = "https://www.malkey.lk/rates/self-drive-rates.html";
+
+        try {
+            final Document document = Jsoup.connect(url).get();
+
+            for(Element row: document.select("table.table.selfdriverates tr")) {
+
+                WebScraping webScraping = new WebScraping();
+
+                final String vehicleName= row.select("td.text-left.percent-40").text();
+                if(!vehicleName.contentEquals("")) {
+                    webScraping.setVehicleName(vehicleName);
+                }
+                final String rates = row.select("td.text-center.percent-22").text();
+                if(!rates.contentEquals("")) {
+
+                    String[] priceList = rates.split(" ");
+
+                    webScraping.setPricePerMonth(priceList[0]);
+                    webScraping.setPricePerWeek(priceList[1]);
+                    webScraping.setDailyMileage(priceList[2]);
+
+                }
+
+                if(webScraping.getVehicleName()!=null) {
+                    webScrapingList.add(webScraping);
+                }
+
+            }
+
+        }catch(Exception e) {
+            e.getMessage();
+        }
+
+        model.addAttribute("webScraping", webScrapingList);
+        model.addAttribute("allVehicles", carList);
+        return "WebScrapingVehicleListUnder25";
     }
 }

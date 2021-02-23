@@ -18,4 +18,6 @@ public interface UserInterface extends UserDetailsService {
     List<User> getAllUsers();
 
     User getUserByUsername(String username);
+
+    boolean validateUsername(String userName);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Banger And Co</title>
@@ -12,10 +12,19 @@
 
 <body>
 
-<br>
-<h1 class="text-center">Banger And Co Car Gallery
-    <a href="/customer/loadCustomerHomepageBelow25" class="btn btn-danger text-right">Go Home</a>
-</h1>
+<nav class="navbar navbar-inverse">
+
+    <div class="navbar-header">
+        <a class="navbar-brand" th:href="@{/customer/loadCustomerHomepageBelow25}">Banger And Co</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a th:href="@{/vehicle/listAllSmallTownCars}">List Vehicles</a></li>
+        <li><a th:href="@{/customer/getBookingsForCustomerUnder25}">View My Bookings</a></li>
+        <li><a th:href="@{/webScrape/getAllWebScrapingDataUnder25}">Compare Prices</a></li>
+        <li><a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+    </ul>
+    </div>
+</nav>
 </br>
 
 <table id="example" class="table table-striped table-bordered text-center">

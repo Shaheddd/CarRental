@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>List Of Equipments</title>
+    <title>List of Documents</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -19,7 +19,7 @@
         <a class="navbar-brand" th:href="@{/administrator/loadAdministratorHomepage}">Banger And Co</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></li>
+        <li class="active"><a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></li>
         <li><a th:href="@{/vehicle/home}">Add Vehicle</a></li>
         <li><a th:href="@{/equipment/loadEquipmentForm}">Add Equipment</a></li>
         <li><a th:href="@{/equipment/listEquipments}">List Equipment</a> </li>
@@ -31,32 +31,35 @@
     </div>
 </nav>
 <body>
-<div class="container">
-    <div align="center" class="form1">
-        <h1>List Equipments</h1>
-        <br>
-        <br>
-        <table border="1" class="table">
-            <thead>
-            <tr>
-                <th> Equipment ID</th>
-                <th> Equipment Name</th>
-                <th> Equipment Description</th>
-                <th> Equipment Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="equipment : ${equipments}">
-                <td th:text="${equipment.equipmentID}"></td>
-                <td th:text="${equipment.equipmentName}"></td>
-                <td th:text="${equipment.equipmentDescription}"></td>
-                <td th:text="${equipment.price}"></td>
-                </td>
-            </tr>
 
-            </tbody>
-        </table>
-    </div>
+<div>
+    <div align="center" class="form1">
+    <h1>List of Documents</h1>
+        <br>
+        <br>
+
+    <table border="1" class="table">
+        <thead>
+        <tr>
+            <th>Document ID</th>
+            <th>Customer First Name</th>
+            <th>Customer Last Name</th>
+
+            <th>Document Name</th>
+            <th>Download Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="document:${documents}">
+            <td th:text="${document.documentID}" />
+            <td th:text="${document.customer.customerFirstName}" />
+            <td th:text="${document.customer.customerLastName}" />
+            <td th:text="${document.documentName}"/>
+            <td><a th:href="@{'/document/downloadDocument/'+${document.documentID}}" class="btn btn-primary">View Document</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </div>
 </body>
 </html>

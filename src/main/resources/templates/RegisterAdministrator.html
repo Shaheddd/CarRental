@@ -9,7 +9,7 @@
           rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
-    <title>Add Admin</title>
+    <title>Add Administrator</title>
 
 </head>
 <body>
@@ -21,10 +21,15 @@
     </div>
 </div>
 
+<div th:if="${param.failed}">
+    <div class="alert alert-info">Username already taken!
+    </div>
+</div>
+
 </div>
 <div class="login-page">
     <div class="form">
-        <h1>Register Admin</h1>
+        <h1>Register Administrator</h1>
         <form method="post" th:action="@{/user/registerAdministrator}" th:object="${administrator}">
 
             <input autofocus="autofocus"

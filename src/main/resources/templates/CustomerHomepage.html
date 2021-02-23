@@ -15,20 +15,13 @@
 
 <nav class="navbar navbar-inverse">
 
-    <div th:if="${param.success}">
-        <div class="alert alert-info">Booking Created!</div>
-    </div>
-
-    <div th:if="${param.failed}">
-        <div class="alert alert-info">Vehicle Or Dates Have Already Been Booked! Please Select a Different Vehicle Or Date!</div>
-    </div>
-
     <div class="navbar-header">
         <a class="navbar-brand" th:href="@{/customer/loadCustomerHomepage}">Banger And Co</a>
     </div>
     <ul class="nav navbar-nav">
         <li><a th:href="@{/customer/listCars}">List Vehicles</a></li>
         <li><a th:href="@{/customer/getBookingsForCustomer}">View My Bookings</a></li>
+        <li><a th:href="@{/webScrape/getData}">Compare Prices</a></li>
         <li><a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
     </ul>
     </div>
@@ -36,6 +29,15 @@
 
 <body>
 
+<div th:if="${param.success}">
+    <div class="alert alert-info">Booking Created!</div>
+</div>
+
+<div th:if="${param.failed}">
+    <div class="alert alert-info">Vehicle Or Dates Have Already Been Booked! Please Select a Different Vehicle Or
+        Date!
+    </div>
+</div>
 
 </body>
 </html>

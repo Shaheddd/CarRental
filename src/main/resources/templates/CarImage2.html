@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Car List </title>
-    <!-- Required meta tags -->
+    <meta charset="ISO-8859-1">
+    <title>List Of Cars</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="/css/style2.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <!--    <link rel="stylesheet" href="/css/style.css">-->
-    <link href="static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet">
-    <button><a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></button>
+</head>
 
+<nav class="navbar navbar-inverse">
+
+    <div class="navbar-header">
+        <a class="navbar-brand" th:href="@{/administrator/loadAdministratorHomepage}">Banger And Co</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></li>
+        <li><a th:href="@{/vehicle/home}">Add Vehicle</a></li>
+        <li><a th:href="@{/equipment/loadEquipmentForm}">Add Equipment</a></li>
+        <li><a th:href="@{/equipment/listEquipments}">List Equipment</a> </li>
+        <li><a th:href="@{/administrator/manageCustomers}">Manage Customers</a></li>
+        <li class="active"><a th:href="@{/vehicle/show}">View All Vehicles</a></li>
+        <li><a th:href="@{/document/listDocuments}">View Documents</a></li>
+        <li><a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+    </ul>
+    </div>
+</nav>
 <body>
 <div class="container bg-light">
-
 
     <div class="col-12">
 
@@ -35,8 +47,8 @@
                 </td>
                 <td class="col-12 col-md-4">
                     <div class="p-3">
-                        <h2 th:text="${optionalCar.brand}"></h2>
-                        <strong class="pb-3 d-block" th:text="${optionalCar.model}"></strong>
+                        <h2 th:text="${optionalCar.model}"></h2>
+                        <strong class="pb-3 d-block" th:text="${optionalCar.brand}"></strong>
                         <!--                        <img style="max-width: 320px;" class="w-100 my-auto" th:src="@{${'/vehicle/image/display/'+ optionalCar.id}}"/>-->
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item bg-transparent text-dark">Transmission: <span th:text="${optionalCar.transmissionType}"></span></li>
@@ -54,9 +66,9 @@
                 <td class="col-12 col-md-2">
                     <div class="h-100 d-flex align-items-end flex-column p-3">
                         <div class="h-100 d-flex align-items-center">
-                            <Strong th:inline="text"> [[${optionalCar.categoryPrice}]]€ <small class="float-right pr-2">&nbsp per day</small></strong>
+                            <Strong th:inline="text"> $[[${optionalCar.categoryPrice}]]<small class="float-right pr-2">&nbsp per day</small></strong>
                         </div>
-                        <a th:href="@{/vehicle/carImageDetails(id=${optionalCar.id})}" class="btn btn-sm font-weight-bold mt-auto">Choose</a>
+                        <a th:href="@{/vehicle/carImageDetails(id=${optionalCar.id})}" class="btn btn-primary">Choose</a>
                     </div>
                 </td>
             </tr>

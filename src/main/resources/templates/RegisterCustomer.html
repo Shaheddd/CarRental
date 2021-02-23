@@ -9,7 +9,7 @@
           rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
-    <title>Add Admin</title>
+    <title>Add Customer</title>
 
 </head>
 <body>
@@ -18,6 +18,11 @@
 <!-- success message -->
 <div th:if="${param.success}">
     <div class="alert alert-info">You've successfully registered!
+    </div>
+</div>
+
+<div th:if="${param.failed}">
+    <div class="alert alert-info">Username already taken!
     </div>
 </div>
 

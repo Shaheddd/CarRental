@@ -26,7 +26,6 @@ public class Car {
     private String categoryType;
     private double categoryPrice;
     private String fuelType;
-//    private String transmissionType;
 
     @Enumerated(EnumType.STRING)
     private TransmissionType transmissionType;

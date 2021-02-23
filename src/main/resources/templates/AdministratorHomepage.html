@@ -7,59 +7,62 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link href="/css/style2.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 
-    <nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse">
 
-        <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/administrator/loadAdministratorHomepage}">Banger And Co</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></li>
-            <li><a th:href="@{/vehicle/home}">Add Vehicle</a></li>
-            <li><a th:href="@{/equipment/loadEquipmentForm}">Add Equipment</a></li>
-            <li><a th:href="@{/equipment/listEquipments}">List Equipment</a> </li>
-            <li><a th:href="@{/administrator/manageCustomers}">Manage Customers</a></li>
-            <li><a th:href="@{/vehicle/show}">View All Vehicles</a></li>
-            <li><a th:href="@{/webScrape/getData}">View Prices</a></li>
-            <li><a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
-        </ul>
-        </div>
-    </nav>
+    <div class="navbar-header">
+        <a class="navbar-brand" th:href="@{/administrator/loadAdministratorHomepage}">Banger And Co</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li class="active"><a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></li>
+        <li><a th:href="@{/vehicle/home}">Add Vehicle</a></li>
+        <li><a th:href="@{/equipment/loadEquipmentForm}">Add Equipment</a></li>
+        <li><a th:href="@{/equipment/listEquipments}">List Equipment</a> </li>
+        <li><a th:href="@{/administrator/manageCustomers}">Manage Customers</a></li>
+        <li><a th:href="@{/vehicle/show}">View All Vehicles</a></li>
+        <li><a th:href="@{/document/listDocuments}">View Documents</a></li>
+        <li><a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+    </ul>
+    </div>
+</nav>
 
 <body>
+<div class="container">
+    <div align="center" class="form1">
+        <h1>List Users</h1>
+        <br>
+        <br>
+        <table border="1" class="table">
+            <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userID}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.address}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td th:text="${user.status}"></td>
+            </tr>
 
-<div align="center" class="form1">
-<h1>List Users</h1>
-<table border="1" class="table">
-    <thead>
-    <tr>
-        <th>User ID</th>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.userID}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.firstName}"></td>
-        <td th:text="${user.lastName}"></td>
-        <td th:text="${user.address}"></td>
-        <td th:text="${user.phoneNumber}"></td>
-        <td th:text="${user.status}"></td>
-    </tr>
-
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

@@ -62,6 +62,20 @@ public class UserService implements UserInterface {
 
     }
 
+    @Override
+    public boolean validateUsername(String userName){
+        try {
+            User user = userRepository.searchUsername(userName);
+
+            if(userName == null) {
+                return true;
+            }
+    } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
     }

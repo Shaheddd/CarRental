@@ -19,7 +19,6 @@ public class BookingRegistration {
     private String startTime;
     private String endTime;
     private String status;
-    private String test;
     private double totalPrice;
 
     private User user;

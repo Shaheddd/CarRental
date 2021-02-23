@@ -31,4 +31,5 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Booking.class)
     private List<Booking> bookingList;
+
 }

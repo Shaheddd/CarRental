@@ -1,7 +1,10 @@
 package com.assignment.bangerandco.Controller;
 
 import com.assignment.bangerandco.DataTransferObject.BookingRegistration;
-import com.assignment.bangerandco.Entity.*;
+import com.assignment.bangerandco.Entity.Booking;
+import com.assignment.bangerandco.Entity.Car;
+import com.assignment.bangerandco.Entity.Customer;
+import com.assignment.bangerandco.Entity.User;
 import com.assignment.bangerandco.Repository.BookingRepository;
 import com.assignment.bangerandco.Service.BookingService;
 import com.assignment.bangerandco.Service.CarService;
@@ -12,7 +15,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -68,6 +73,23 @@ public class CustomerController {
         List<Booking> bookingList = customer.getBookingList();
         model.addAttribute("bookingsForCustomer", bookingList);
         return "GetBookingsForCustomer";
+    }
+
+    @GetMapping("/getBookingsForCustomerUnder25")
+    public String getBookingsForCustomerUnder25(Model model) {
+        String username = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        User user = userService.getUserByUsername(username);
+        Customer customer = customerService.getCustomerByUserID(user.getUserID());
+
+        List<Booking> bookingList = customer.getBookingList();
+        model.addAttribute("bookingsForCustomerUnder25", bookingList);
+        return "GetBookingsForCustomerUnder25";
     }
 
     @GetMapping("/extendBooking/{id}")

@@ -16,13 +16,13 @@
 <nav class="navbar navbar-inverse">
 
     <div class="navbar-header">
-        <a class="navbar-brand" th:href="@{/customer/loadCustomerHomepage}">Banger And Co</a>
+        <a class="navbar-brand" th:href="@{/customer/loadCustomerHomepageBelow25}">Banger And Co</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a th:href="@{/customer/loadCustomerHomepage}">Home</a></li>
-        <li><a th:href="@{/customer/listCars}">List Vehicles</a></li>
-        <li class="active"><a th:href="@{/customer/getBookingsForCustomer}">View My Bookings</a></li>
-        <li><a th:href="@{/webScrape/getData}">Compare Prices</a></li>
+        <li><a th:href="@{/customer/loadCustomerHomepageBelow25}">Home</a></li>
+        <li><a th:href="@{/vehicle/listAllSmallTownCars}">List Vehicles</a></li>
+        <li><a th:href="@{/customer/getBookingsForCustomerUnder25}">View My Bookings</a></li>
+        <li><a th:href="@{/webScrape/getAllWebScrapingDataUnder25}">Compare Prices</a></li>
         <li><a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
     </ul>
     </div>
@@ -30,6 +30,11 @@
 <body>
 
 <div align="center" class="form1">
+
+
+    <h1>List Of Bookings</h1>
+    <br>
+    <br>
 
     <div th:if="${param.success}">
         <div class="alert alert-info">Booking Extended to 9 Pm!</div>
@@ -39,9 +44,6 @@
         <div class="alert alert-info">Booking Cannot Be Extended! You Need To Have 3 Previous Bookings In Order To Be Eligible To Extend Future Bookings!</div>
     </div>
 
-    <h1>List Of Bookings</h1>
-    <br>
-    <br>
     <table class="table" border="1">
         <thead>
         <tr>
@@ -56,7 +58,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="booking : ${bookingsForCustomer}">
+        <tr th:each="booking : ${bookingsForCustomerUnder25}">
             <td th:text="${booking.startDate}"></td>
             <td th:text="${booking.endDate}"></td>
             <td th:text="${booking.startTime}"></td>

@@ -1,6 +1,5 @@
 package com.assignment.bangerandco.Controller;
 
-import com.assignment.bangerandco.Calculations.CalculateBooking;
 import com.assignment.bangerandco.DataTransferObject.BookingRegistration;
 import com.assignment.bangerandco.Entity.Car;
 import com.assignment.bangerandco.Entity.Customer;
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -78,12 +75,20 @@ public class BookingController {
                               @RequestParam(value = "equipmentID", required = false) List<Long> equipmentList) {
 
         boolean save = bookingService.saveBookingForCustomer(equipmentList, bookingRegistration);
+        Customer customer = customerService.getCustomerByID(bookingRegistration.getCustomerID());
 
-        if(save) {
+        if (save && (customer.getCustomerAge() > 25)) {
             return "redirect:/customer/loadCustomerHomepage?success";
-        } else {
+        } else if (!save && (customer.getCustomerAge() > 25)) {
             return "redirect:/customer/loadCustomerHomepage?failed";
+        } else if (save && (customer.getCustomerAge() < 25)) {
+            return "redirect:/customer/loadCustomerHomepageBelow25?success";
+        } else if (!save && (customer.getCustomerAge() < 25)) {
+            return "redirect:/customer/loadCustomerHomepageBelow25?failed";
         }
+
+        return null;
+
 
 //        if (CalculateBooking.startDateIsBeforeEndDate(bookingRegistration.getBooking())) {
 //            List<Equipment> newEquipmentList = new ArrayList<>();
